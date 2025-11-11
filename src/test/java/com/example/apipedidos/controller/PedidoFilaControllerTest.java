@@ -2,6 +2,7 @@ package com.example.apipedidos.controller;
 
 import com.example.apipedidos.dto.PedidoResponseDTO;
 import com.example.apipedidos.service.PedidoService;
+import com.example.apipedidos.dto.FilaStatusDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -111,8 +112,7 @@ class PedidoFilaControllerTest {
     @DisplayName("GET /api/pedidos/fila/status - Deve retornar status da fila com dados corretos")
     void obterStatusDaFila_DeveRetornarStatusCorreto() throws Exception {
         // Arrange
-        when(pedidoService.getTamanhoDaFila()).thenReturn(3);
-        when(pedidoService.isFilaVazia()).thenReturn(false);
+        when(pedidoService.obterStatusDaFila()).thenReturn(new FilaStatusDTO(3, false));
 
         // Act & Assert
         mockMvc.perform(get("/api/pedidos/fila/status")
@@ -127,8 +127,7 @@ class PedidoFilaControllerTest {
     @DisplayName("GET /api/pedidos/fila/status - Deve retornar status de fila vazia")
     void obterStatusDaFila_ComFilaVazia_DeveRetornarStatusVazio() throws Exception {
         // Arrange
-        when(pedidoService.getTamanhoDaFila()).thenReturn(0);
-        when(pedidoService.isFilaVazia()).thenReturn(true);
+        when(pedidoService.obterStatusDaFila()).thenReturn(new FilaStatusDTO(0, true));
 
         // Act & Assert
         mockMvc.perform(get("/api/pedidos/fila/status")

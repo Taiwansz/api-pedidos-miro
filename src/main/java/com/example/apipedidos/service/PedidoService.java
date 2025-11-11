@@ -4,6 +4,7 @@ import com.example.apipedidos.dto.PedidoRequestDTO;
 import com.example.apipedidos.dto.PedidoResponseDTO;
 import com.example.apipedidos.exception.PedidoNotFoundException;
 import com.example.apipedidos.model.Pedido;
+import com.example.apipedidos.dto.FilaStatusDTO;
 import com.example.apipedidos.repository.PedidoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -205,6 +206,16 @@ public class PedidoService {
      */
     public boolean isFilaVazia() {
         return filaPedidos.isEmpty();
+    }
+
+    /**
+     * Retorna um DTO com o status atual da fila (tamanho e se está vazia).
+     * Centraliza a leitura da estrutura de fila para facilitar futuras mudanças.
+     * @return FilaStatusDTO com informações da fila
+     */
+    public FilaStatusDTO obterStatusDaFila() {
+        log.info("Obtendo status da fila - tamanho: {}, vazia: {}", filaPedidos.size(), filaPedidos.isEmpty());
+        return new FilaStatusDTO(filaPedidos.size(), filaPedidos.isEmpty());
     }
     
     /**

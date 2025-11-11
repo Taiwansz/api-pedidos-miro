@@ -130,13 +130,8 @@ public class PedidoController {
     @GetMapping("/fila/status")
     public ResponseEntity<FilaStatusDTO> obterStatusDaFila() {
         log.info("Recebida requisição GET para obter status da fila");
-        
-        int tamanho = pedidoService.getTamanhoDaFila();
-        boolean vazia = pedidoService.isFilaVazia();
-        
-        FilaStatusDTO status = new FilaStatusDTO(tamanho,vazia);
-        
-        log.info("Status da fila - Tamanho: {}, Vazia: {}", tamanho, vazia);
+        FilaStatusDTO status = pedidoService.obterStatusDaFila();
+        log.info("Status da fila - Tamanho: {}, Vazia: {}", status.getTamanho(), status.isVazia());
         return ResponseEntity.ok(status);
     }
     
