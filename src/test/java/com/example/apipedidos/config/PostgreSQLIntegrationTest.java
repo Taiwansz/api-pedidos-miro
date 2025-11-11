@@ -52,6 +52,9 @@ public class PostgreSQLIntegrationTest {
         registry.add("spring.jpa.database-platform", () -> "org.hibernate.dialect.PostgreSQLDialect");
         registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
         registry.add("spring.jpa.show-sql", () -> "true");
+        // Disable Spring SQL initialization for this Testcontainers-based integration test
+        // to avoid loading development seed data (e.g. data-dev.sql) into the containerized DB.
+        registry.add("spring.sql.init.mode", () -> "never");
     }
 
     @LocalServerPort
